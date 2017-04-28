@@ -5,7 +5,7 @@ var expect = require('expect');
 var $ = require('jquery');
 
 var TodoApp = require('TodoApp');
-
+ 
 describe('TodoApp', () => {
   it('should exist', () => {
     expect(TodoApp).toExist();
@@ -21,4 +21,20 @@ describe('TodoApp', () => {
     expect(todoApp.state.todos[0].text).toBe(todoText);
   });
   
+  it('should toggle completed value when handleToggle called', () => {
+    var todoData = {
+      id: 10,
+      text: 'test feature',
+      completed: false
+    }
+
+    var todoApp = TestUtils.renderIntoDocument(<TodoApp/>);
+
+    todoApp.setState({todos: [todoData]});
+
+    expect(todoApp.state.todos[0].completed).toBe(false);
+    todoApp.handleToggle(10);
+    expect(todoApp.state.todos[0].completed).toBe(true);
+  });
+
 });
